@@ -136,7 +136,7 @@ class ReCaptcha
      * @param RequestMethod $requestMethod method used to send the request. Defaults to POST.
      * @throws \RuntimeException if $secret is invalid
      */
-    public function __construct($secret, RequestMethod $requestMethod = null)
+    public function __construct($secret, ?RequestMethod $requestMethod = null)
     {
         if (empty($secret)) {
             throw new \RuntimeException('No secret provided');
@@ -162,14 +162,14 @@ class ReCaptcha
     {
         // Discard empty solution submissions
         if (empty($response)) {
-            $recaptchaResponse = new Response(false, array(self::E_MISSING_INPUT_RESPONSE));
+            $recaptchaResponse = new Response(false, [self::E_MISSING_INPUT_RESPONSE]);
             return $recaptchaResponse;
         }
 
         $params = new RequestParameters($this->secret, $response, $remoteIp, self::VERSION);
         $rawResponse = $this->requestMethod->submit($params);
         $initialResponse = Response::fromJson($rawResponse);
-        $validationErrors = array();
+        $validationErrors = [];
 
         if (isset($this->hostname) && strcasecmp($this->hostname, $initialResponse->getHostname()) !== 0) {
             $validationErrors[] = self::E_HOSTNAME_MISMATCH;

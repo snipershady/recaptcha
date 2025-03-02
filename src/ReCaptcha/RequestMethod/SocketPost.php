@@ -59,7 +59,7 @@ class SocketPost implements RequestMethod
      * @param \ReCaptcha\RequestMethod\Socket $socket optional socket, injectable for testing
      * @param string $siteVerifyUrl URL for reCAPTCHA siteverify API
      */
-    public function __construct(Socket $socket = null, $siteVerifyUrl = null)
+    public function __construct(?Socket $socket = null, $siteVerifyUrl = null)
     {
         $this->socket = (is_null($socket)) ? new Socket() : $socket;
         $this->siteVerifyUrl = (is_null($siteVerifyUrl)) ? ReCaptcha::SITE_VERIFY_URL : $siteVerifyUrl;
@@ -99,7 +99,7 @@ class SocketPost implements RequestMethod
 
         $this->socket->fclose();
 
-        if (0 !== strpos($response, 'HTTP/1.0 200 OK')) {
+        if (!str_starts_with($response, 'HTTP/1.0 200 OK')) {
             return '{"success": false, "error-codes": ["'.ReCaptcha::E_BAD_RESPONSE.'"]}';
         }
 
