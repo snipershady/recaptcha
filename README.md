@@ -1,5 +1,18 @@
 # reCAPTCHA PHP client library
 
+## This is a fork of the official library.
+
+Google is moving recaptcha to enterprise cloud service, so the old library for recaptcha is not mantained anymore.
+This fork add support to PHP 8.4 version.
+
+If you want to integrate this version, change your requirements in composer.json
+
+```bash
+
+composer require snipershady/recaptcha
+
+```
+
 [![Build Status](https://travis-ci.org/google/recaptcha.svg)](https://travis-ci.org/google/recaptcha)
 [![Coverage Status](https://coveralls.io/repos/github/google/recaptcha/badge.svg)](https://coveralls.io/github/google/recaptcha)
 [![Latest Stable Version](https://poser.pugx.org/google/recaptcha/v/stable.svg)](https://packagist.org/packages/google/recaptcha)
